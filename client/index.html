@@ -1,22 +1,896 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevSim Studios - Transforme Teoria em Prática</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>Startup Landing Page - UniPiaget Stage 4</title>    
-    <!-- THIS IS THE START OF A COMMENT BLOCK, BLOCK TO BE DELETED: Google Fonts here, example:
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    THIS IS THE END OF A COMMENT BLOCK, BLOCK TO BE DELETED -->
-  </head>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --primary-light: #dbeafe;
+            --background: #ffffff;
+            --foreground: #1e293b;
+            --muted: #64748b;
+            --muted-light: #f1f5f9;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --radius: 10px;
+        }
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--foreground);
+            background-color: var(--background);
+            line-height: 1.6;
+        }
 
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .btn {
+            padding: 10px 24px;
+            border-radius: var(--radius);
+            border: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--foreground);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+        }
+
+        .hero-content {
+            max-width: 700px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--foreground);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--muted);
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        /* About Section */
+        .about {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            color: var(--muted);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .about-text p {
+            color: var(--muted);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .mission-vision {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .mission-item {
+            display: flex;
+            gap: 15px;
+        }
+
+        .mission-line {
+            width: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .mission-item h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .mission-item p {
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .team-card {
+            background: var(--muted-light);
+            padding: 40px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+        }
+
+        .team-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .team-member {
+            margin-bottom: 20px;
+        }
+
+        .team-member h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .team-member p {
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        /* Product Section */
+        .product {
+            padding: 80px 0;
+            background: var(--muted-light);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-light);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        /* How to Use Section */
+        .how-to {
+            padding: 80px 0;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .step {
+            text-align: center;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+
+        .step h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .step p {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            padding: 80px 0;
+            background: var(--muted-light);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: 30px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+        }
+
+        .benefit-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-light);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .benefit-card ul {
+            list-style: none;
+        }
+
+        .benefit-card li {
+            color: var(--muted);
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .benefit-card li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+        }
+
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 60px;
+            padding-top: 60px;
+            border-top: 1px solid var(--border);
+        }
+
+        .contact-info-item h4 {
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .contact-info-item p {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .social-links a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-dark);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--foreground);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .about-grid,
+            .features-grid,
+            .benefits-grid,
+            .steps-grid,
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">&lt;/&gt;</div>
+                    <span>DevSim Studios</span>
+                </div>
+                <nav>
+                    <a href="#about">Sobre</a>
+                    <a href="#product">Produto</a>
+                    <a href="#benefits">Benefícios</a>
+                    <a href="#contact">Contato</a>
+                </nav>
+                <button class="btn btn-primary">Comece Grátis</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">🚀 Educação em Tecnologia</div>
+                <h1>Transforme Teoria em Prática com Simuladores Reais</h1>
+                <p>Pratique desenvolvimento de software em ambientes seguros e realistas. Aprenda fazendo, erre sem medo, cresça com confiança.</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary">Comece a Praticar Gratuitamente</button>
+                    <button class="btn btn-secondary">Solicite uma Demonstração</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Quem Somos</h2>
+                <p>Fundada em 2026, a DevSim Studios resolve um problema real: a lacuna entre teoria e prática em educação técnica.</p>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>Estudantes e profissionais em formação enfrentam dificuldades para desenvolver competências práticas. O ensino ainda é fortemente teórico e não oferece ambientes seguros para experimentação.</p>
+                    <p>A DevSim Studios surge como resposta: criamos simuladores virtuais web-based, acessíveis e focados em cenários reais de desenvolvimento de software.</p>
+                    
+                    <div class="mission-vision">
+                        <div class="mission-item">
+                            <div class="mission-line"></div>
+                            <div>
+                                <h4>Missão</h4>
+                                <p>Democratizar o acesso a ambientes de prática profissional seguros e realistas.</p>
+                            </div>
+                        </div>
+                        <div class="mission-item">
+                            <div class="mission-line"></div>
+                            <div>
+                                <h4>Visão</h4>
+                                <p>Ser a plataforma educacional de referência para simulação em desenvolvimento de software.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-card">
+                    <h3>Nossa Equipe</h3>
+                    <div class="team-member">
+                        <h4>Alexandre Fernandes</h4>
+                        <p>CEO & Estratégia</p>
+                    </div>
+                    <div class="team-member">
+                        <h4>Carlos Eduardo</h4>
+                        <p>CTO & Desenvolvimento</p>
+                    </div>
+                    <div class="team-member">
+                        <h4>Julio Lins</h4>
+                        <p>COO & Operações</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Section -->
+    <section class="product" id="product">
+        <div class="container">
+            <div class="section-title">
+                <h2>DevSim: Simuladores para Desenvolvimento</h2>
+                <p>Pratique o ciclo completo de desenvolvimento em ambientes realistas, com feedback imediato e repetição ilimitada.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">💻</div>
+                    <h3>Cenários Realistas</h3>
+                    <p>Ambientes que reproduzem situações autênticas de desenvolvimento, com requisitos, restrições e objetivos claros.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Feedback Inteligente</h3>
+                    <p>Receba feedback em tempo real sobre decisões técnicas, qualidade de código e conformidade com requisitos.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>Colaboração em Equipe</h3>
+                    <p>Trabalhe com outros usuários em simuladores colaborativos que reproduzem dinâmicas reais de equipes.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Ambiente Seguro</h3>
+                    <p>Cometer erros sem consequências reais. Praticar quantas vezes forem necessárias para dominar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Use Section -->
+    <section class="how-to">
+        <div class="container">
+            <div class="section-title">
+                <h2>Comece em 3 Passos</h2>
+                <p>Simples, rápido e intuitivo.</p>
+            </div>
+
+            <div class="steps-grid">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Criar Conta</h3>
+                    <p>Acesse e crie sua conta em menos de 1 minuto. Use seu e-mail institucional para acesso simplificado.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Escolher Simulador</h3>
+                    <p>Navegue pela biblioteca de simuladores. Cada um inclui descrição, dificuldade e competências.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Começar a Praticar</h3>
+                    <p>Entre no simulador, receba os requisitos e comece a trabalhar com todas as ferramentas necessárias.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits" id="benefits">
+        <div class="container">
+            <div class="section-title">
+                <h2>Benefícios para Cada Público</h2>
+            </div>
+
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">📚</div>
+                    <h3>Para Estudantes</h3>
+                    <ul>
+                        <li>Prática segura sem consequências reais</li>
+                        <li>Aprendizado acelerado com feedback imediato</li>
+                        <li>Portfólio real para impressionar empregadores</li>
+                        <li>Ingressar no mercado com confiança</li>
+                    </ul>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">👨‍🏫</div>
+                    <h3>Para Educadores</h3>
+                    <ul>
+                        <li>Ferramenta pedagógica comprovada</li>
+                        <li>Flexibilidade na integração curricular</li>
+                        <li>Dashboard para acompanhar alunos</li>
+                        <li>Cenários customizáveis</li>
+                    </ul>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🚀</div>
+                    <h3>Para Empresas</h3>
+                    <ul>
+                        <li>Treinamento eficiente de equipes</li>
+                        <li>Redução de riscos em produção</li>
+                        <li>Escalabilidade para múltiplos times</li>
+                        <li>ROI comprovado</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Entre em Contato</h2>
+                <p>Tire suas dúvidas ou solicite uma demonstração.</p>
+            </div>
+
+            <div class="contact-container">
+                <form onsubmit="event.preventDefault(); alert('Obrigado pelo contato! Responderemos em breve.');">
+                    <div class="form-group">
+                        <label for="name">Nome Completo</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Tipo de Usuário</label>
+                        <select id="type" name="type" required>
+                            <option value="">Selecione uma opção</option>
+                            <option value="student">Estudante</option>
+                            <option value="educator">Educador</option>
+                            <option value="company">Empresa</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mensagem</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar Mensagem</button>
+                </form>
+
+                <div class="contact-info">
+                    <div class="contact-info-item">
+                        <h4>Contato Direto</h4>
+                        <p>contato@devsimstudios.com</p>
+                    </div>
+                    <div class="contact-info-item">
+                        <h4>Redes Sociais</h4>
+                        <div class="social-links">
+                            <a href="#" target="_blank">LinkedIn</a>
+                            <a href="#" target="_blank">Instagram</a>
+                            <a href="#" target="_blank">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>DevSim Studios</h4>
+                    <p>Transformando teoria em prática através de simuladores educacionais.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Links Rápidos</h4>
+                    <a href="#about">Sobre</a>
+                    <a href="#product">Produto</a>
+                    <a href="#benefits">Benefícios</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <a href="#">Termos de Serviço</a>
+                    <a href="#">Privacidade</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Contato</h4>
+                    <p>contato@devsimstudios.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 DevSim Studios. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
 </html>
+Análise e armazenamento de informações do arquivo - Manus
